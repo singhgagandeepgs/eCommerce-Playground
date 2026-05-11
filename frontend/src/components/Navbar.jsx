@@ -4,7 +4,7 @@ import { useCart } from '../contexts/CartContext'
 import { supabase } from '../lib/supabase'
 
 export default function Navbar() {
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
   const { cartCount } = useCart()
   const navigate = useNavigate()
 
@@ -37,13 +37,38 @@ export default function Navbar() {
             </Link>
 
             {user ? (
-              <button
-                onClick={handleSignOut}
-                className="text-sm text-gray-600 hover:text-gray-900 font-medium"
-                data-testid="nav-signout"
-              >
-                Sign out
-              </button>
+              <>
+                <Link
+                  to="/orders"
+                  className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+                  data-testid="nav-orders"
+                >
+                  My Orders
+                </Link>
+                <Link
+                  to="/profile"
+                  className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+                  data-testid="nav-profile"
+                >
+                  Profile
+                </Link>
+                {profile?.role === 'admin' && (
+                  <Link
+                    to="/admin"
+                    className="text-sm text-indigo-600 hover:text-indigo-800 font-semibold"
+                    data-testid="nav-admin"
+                  >
+                    Admin
+                  </Link>
+                )}
+                <button
+                  onClick={handleSignOut}
+                  className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+                  data-testid="nav-signout"
+                >
+                  Sign out
+                </button>
+              </>
             ) : (
               <>
                 <Link

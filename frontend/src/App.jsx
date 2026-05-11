@@ -8,6 +8,9 @@ import CartPage from './pages/CartPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import OrderConfirmationPage from './pages/OrderConfirmationPage'
+import OrdersPage from './pages/OrdersPage'
+import AdminPage from './pages/AdminPage'
+import ProfilePage from './pages/ProfilePage'
 
 export default function App() {
   return (
@@ -24,6 +27,9 @@ export default function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
+                <Route path="/orders" element={<OrdersPage />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
               </Routes>
             </main>
           </div>
