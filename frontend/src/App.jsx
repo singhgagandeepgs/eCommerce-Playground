@@ -11,6 +11,7 @@ import OrderConfirmationPage from './pages/OrderConfirmationPage'
 import OrdersPage from './pages/OrdersPage'
 import AdminPage from './pages/AdminPage'
 import ProfilePage from './pages/ProfilePage'
+import PaymentPage from './pages/PaymentPage'
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
                 <Route path="/orders" element={<OrdersPage />} />
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/payment" element={<PaymentPage />} />
               </Routes>
             </main>
           </div>

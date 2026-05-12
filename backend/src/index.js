@@ -5,6 +5,7 @@ import { errorHandler } from './middleware/errorHandler.js'
 import productsRouter from './routes/products.js'
 import cartRouter from './routes/cart.js'
 import ordersRouter from './routes/orders.js'
+import paymentsRouter from './routes/payments.js'
 import testResetRouter from './routes/testReset.js'
 
 dotenv.config()
@@ -20,6 +21,7 @@ app.get('/health', (_req, res) => res.json({ status: 'ok' }))
 app.use('/api/products', productsRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/orders', ordersRouter)
+app.use('/api/payments', paymentsRouter)
 app.use('/api/test-reset', testResetRouter)
 
 app.use(errorHandler)

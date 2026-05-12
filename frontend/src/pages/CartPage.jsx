@@ -1,53 +1,17 @@
-import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import { useCart } from '../contexts/CartContext'
 
 export default function CartPage() {
-  const { cartItems, cartTotal, updateQuantity, removeFromCart, clearCart, loading } = useCart()
+  const { cartItems, cartTotal, updateQuantity, removeFromCart, loading } = useCart()
   const { user } = useAuth()
   const navigate = useNavigate()
-  const [checkingOut, setCheckingOut] = useState(false)
-  const [checkoutError, setCheckoutError] = useState('')
-
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (!user) {
       navigate('/login')
       return
     }
-    setCheckoutError('')
-    setCheckingOut(true)
-
-    const { data: order, error: orderError } = await supabase
-      .from('orders')
-      .insert({ user_id: user.id, status: 'pending', total_amount: cartTotal })
-      .select()
-      .single()
-
-    if (orderError) {
-      setCheckoutError('Failed to create order. Please try again.')
-      setCheckingOut(false)
-      return
-    }
-
-    const orderItems = cartItems.map(item => ({
-      order_id: order.id,
-      product_id: item.product_id,
-      quantity: item.quantity,
-      price: Number(item.products?.price ?? 0),
-    }))
-
-    const { error: itemsError } = await supabase.from('order_items').insert(orderItems)
-
-    if (itemsError) {
-      setCheckoutError('Failed to save order items. Please try again.')
-      setCheckingOut(false)
-      return
-    }
-
-    await clearCart()
-    navigate(`/order-confirmation/${order.id}`)
+    navigate('/payment')
   }
 
   if (!user) {
@@ -182,17 +146,12 @@ export default function CartPage() {
               <span data-testid="cart-total">${cartTotal.toFixed(2)}</span>
             </div>
 
-            {checkoutError && (
-              <p className="text-sm text-red-500 mb-3" data-testid="checkout-error">{checkoutError}</p>
-            )}
-
             <button
               onClick={handleCheckout}
-              disabled={checkingOut}
-              className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors disabled:opacity-60"
+              className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
               data-testid="checkout-button"
             >
-              {checkingOut ? 'Processing…' : 'Checkout'}
+              Proceed to Payment
             </button>
 
             <Link
