@@ -1,3 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background-color: #FAFAFA;
+    color: #0F172A;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Confetti keyframe — used via inline styles in OrderConfirmationPage */
+@keyframes confettiFall {
+  0%   { transform: translateY(-10px) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+    box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.30);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .btn-gradient:hover:not(:disabled) {
+    box-shadow: 0 8px 24px 0 rgba(99, 102, 241, 0.45);
+    transform: translateY(-1px);
+  }
+  .btn-gradient:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px 0 rgba(99, 102, 241, 0.25);
+  }
+
+  .card-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04);
+  }
+
+  .input-field {
+    @apply w-full border border-[#E2E8F0] rounded-xl px-4 py-3 text-sm text-[#0F172A]
+           placeholder-[#94A3B8] bg-white
+           focus:outline-none focus:ring-2 focus:ring-[#6366F1]/20 focus:border-[#6366F1]
+           transition-all duration-200;
+  }
+}
