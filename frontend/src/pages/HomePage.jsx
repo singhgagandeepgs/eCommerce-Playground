@@ -115,7 +115,7 @@ export default function HomePage() {
               placeholder="Search products…"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="input-field pl-10"
+              className="input-field !pl-10"
               data-testid="search-input"
             />
           </div>
